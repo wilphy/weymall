@@ -12,6 +12,6 @@ export default {
 
 <style>
 #app {
-  text-align: center;
+  background: #ddd;
 }
 </style>
