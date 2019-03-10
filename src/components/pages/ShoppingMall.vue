@@ -30,8 +30,23 @@
       </div>
     </div>
     <!-- 广告栏 -->
-    <div>
+    <div style="margin-top: .35rem">
       <img :src="adBanner" width="100%" />
+    </div>
+    <!-- 商品推荐 -->
+    <div class="recommand-area">
+      <div class="recommand-title">商品推荐</div>
+      <div class="recommand-body">
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(item, index) in recommendGoods" :key="index">
+            <div class="recommand-item">
+              <img :src="item.image" width="80%">
+              <div>{{ item.goodsName }}</div>
+              <div>￥{{ item.mallPrice }}(￥{{ item.price }})</div>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
     </div>
 
   </div>
@@ -39,15 +54,24 @@
 
 <script>
   import axios from 'axios'
+  import { swiper, swiperSlide } from 'vue-awesome-swiper'
+  import 'swiper/dist/css/swiper.css'
   export default {
     data() {
       return {
-        msg: 'Shopping Mall',
+        swiperOption: {
+          slidesPerView:3
+        },
         locationIcon: require('../../assets/imgages/location.png'),
         swipeImgArray: [],
         category: [],
         adBanner: '',
+        recommendGoods: [],
       }
+    },
+    components: {
+      swiper,
+      swiperSlide
     },
     created() {
       axios({
@@ -58,10 +82,14 @@
       .then(response => {
         console.log(response)
         if(response.status == 200) {
+          //轮播图
           this.swipeImgArray = response.data.data.slides;
+          //类别
           this.category = response.data.data.category;
-          console.log(this.category);
+          //广告栏
           this.adBanner = response.data.data.advertesPicture.PICTURE_ADDRESS;
+          //推荐
+          this.recommendGoods = response.data.data.recommend;
         }
       })
       .catch(error => {
@@ -107,6 +135,24 @@
   }
   .type-bar div {
     width: 20%;
+    text-align: center;
+  }
+  .recommand-area {
+    background-color: #fff;
+    margin-top: .3rem;
+  }
+  .recommand-title {
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    padding: .2rem;
+    color: #ff0066;
+  }
+  .recommand-body {
+    border-bottom: 1px solid #eee;
+  }
+  .recommand-item {
+    width: 99%;
+    border-right: 1px solid #eee;
     text-align: center;
   }
 </style>
