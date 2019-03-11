@@ -49,7 +49,9 @@
       </div>
     </div>
     <!-- 楼层 -->
-    <floor :floorData="floor1"></floor>
+    <floor :floorData="floor1" :floorTitle="floorName.floor1"></floor>
+    <floor :floorData="floor2" :floorTitle="floorName.floor2"></floor>
+    <floor :floorData="floor3" :floorTitle="floorName.floor3"></floor>
 
   </div>
 </template>
@@ -72,9 +74,9 @@
         adBanner: '',
         recommendGoods: [],
         floor1: [],
-        floor1_0: {},
-        floor1_1: {},
-        floor1_2: {}
+        floor2: [],
+        floor3: [],
+        floorName: {}
       }
     },
     components: {swiper, swiperSlide, floor},
@@ -95,8 +97,11 @@
           this.adBanner = response.data.data.advertesPicture.PICTURE_ADDRESS;
           //推荐
           this.recommendGoods = response.data.data.recommend;
-          // 1楼
-          this.floor1 = response.data.data.floor1
+          // 楼层
+          this.floor1 = response.data.data.floor1;
+          this.floor2 = response.data.data.floor2;
+          this.floor3 = response.data.data.floor3;
+          this.floorName = response.data.data.floorName;
         }
       })
       .catch(error => {

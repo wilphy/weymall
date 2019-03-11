@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="floor">
+      <div class="floor-title">{{ floorTitle }}</div>
       <div class="floor-irregular">
         <div class="floor-one">
           <img :src="floorData0.image" width="100%" />
@@ -25,7 +26,7 @@
 
 <script>
   export default {
-    props: ['floorData'],
+    props: ['floorData', 'floorTitle'],
     data() {
       return {
         floorData0: {},
@@ -48,10 +49,11 @@
 </script>
 
 <style scoped>
-  .recommand-item {
-    width: 99%;
-    border-right: 1px solid #eee;
+  .floor-title {
     text-align: center;
+    font-size: 14px;
+    height: 1.8rem;
+    line-height: 1.8rem;
   }
   .floor-irregular {
     display: flex;
