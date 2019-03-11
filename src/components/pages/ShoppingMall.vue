@@ -76,6 +76,7 @@
 
 <script>
   import axios from 'axios'
+  import url from '@/serviceAPI.config.js'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import 'swiper/dist/css/swiper.css'
   import {toMoney} from '@/filter/moneyFilter'
@@ -108,9 +109,9 @@
     components: {swiper, swiperSlide, Floor, GoodsInfo},
     created() {
       axios({
-        url: 'https://www.easy-mock.com/mock/5c838bf20994c30d33e411ca/weymall/index',
-        method: 'get',
-
+        // url: 'https://www.easy-mock.com/mock/5c838bf20994c30d33e411ca/weymall/index',
+        url: url.getShoppingMallInfo,
+        method: 'get'
       })
       .then(response => {
         console.log(response);
