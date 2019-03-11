@@ -53,6 +53,24 @@
     <floor :floorData="floor2" :floorTitle="floorName.floor2"></floor>
     <floor :floorData="floor3" :floorTitle="floorName.floor3"></floor>
 
+    <!-- 热卖区域 -->
+    <div class="hot-area">
+      <div class="hot-title">热卖商品</div>
+      <div class="hot-goods">
+        <van-list>
+          <van-row gutter="20">
+            <van-col span="12" v-for="(item, index) in hotGoods" :key="index">
+              <GoodsInfo
+                :goodsImage="item.image"
+                :goodsName="item.name"
+                :goodsPrice="item.price">
+              </GoodsInfo>
+            </van-col>
+        </van-row>
+        </van-list>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -60,8 +78,9 @@
   import axios from 'axios'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import 'swiper/dist/css/swiper.css'
-  import floor from '../../components/common/floor.vue'
   import {toMoney} from '@/filter/moneyFilter'
+  import Floor from '@/components/common/Floor.vue'
+  import GoodsInfo from '@/components/GoodsInfo.vue'
 
   export default {
     data() {
@@ -70,14 +89,15 @@
           slidesPerView:3
         },
         locationIcon: require('../../assets/imgages/location.png'),
-        swipeImgArray: [],
-        category: [],
-        adBanner: '',
-        recommendGoods: [],
+        swipeImgArray: [],   //轮播图
+        category: [],        //类别
+        adBanner: '',        //广告栏
+        recommendGoods: [],  //推荐商品
+        floorName: {},       //楼层名字
         floor1: [],
         floor2: [],
-        floor3: [],
-        floorName: {}
+        floor3: [],      
+        hotGoods: [],        //热卖商品
       }
     },
     filters: {
@@ -85,7 +105,7 @@
         return toMoney(money)
       }
     },
-    components: {swiper, swiperSlide, floor},
+    components: {swiper, swiperSlide, Floor, GoodsInfo},
     created() {
       axios({
         url: 'https://www.easy-mock.com/mock/5c838bf20994c30d33e411ca/weymall/index',
@@ -93,7 +113,7 @@
 
       })
       .then(response => {
-        console.log(response)
+        console.log(response);
         if(response.status == 200) {
           //轮播图
           this.swipeImgArray = response.data.data.slides;
@@ -108,6 +128,7 @@
           this.floor2 = response.data.data.floor2;
           this.floor3 = response.data.data.floor3;
           this.floorName = response.data.data.floorName;
+          this.hotGoods = response.data.data.hotGoods;
         }
       })
       .catch(error => {
@@ -174,5 +195,11 @@
   }
   .recommand-item-price {
     color: #c00;
+  }
+  .hot-area{
+      text-align: center;
+      font-size:14px;
+      height: 1.8rem;
+      line-height:1.8rem;
   }
 </style>
