@@ -1,8 +1,15 @@
 const mongoose = require('mongoose')
 const db = "mongodb://localhost/weymall"
+const glob = require('glob')
+const {resolve} = require('path')
+
+exports.initSchemas = () =>{
+  glob.sync(resolve(__dirname, './schema/', '**/*.js')).forEach(require)
+}
+
 exports.connect = ()=>{
   //连接数据库
-  mongoose.connect(db)
+  mongoose.connect(db, {useNewUrlParser:true})
   let maxConnectTimes = 0 
   return  new Promise((resolve,reject)=>{
   //把所有连接放到这里
@@ -31,6 +38,6 @@ exports.connect = ()=>{
     mongoose.connection.once('open',()=>{
       console.log('MongoDB connected successfully') 
       resolve()   
-      })
     })
+  })
 }
