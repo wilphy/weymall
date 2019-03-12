@@ -12,6 +12,7 @@
           icon="clear"
           placeholder="请输入用户名"
           required
+          :error-message="usernameErrorMsg"
           @click-icon="username = ''" />
         <van-field
           v-model="password"
@@ -20,12 +21,14 @@
           placeholder="请输入密码"
           icon="clear"
           required
+          :error-message="passwordErrorMsg"
           @click-icon="password = ''" />
         <div class="register-button">
           <van-button
             type="primary"
             size="large"
-            @click="axiosRegisterUser">马上注册</van-button>
+            :loading="openLoading"
+            @click="registerAction">马上注册</van-button>
         </div>
       </div>
   </div>
@@ -40,14 +43,23 @@
     data () {
       return {
         username: '',
-        password: ''
+        password: '',
+        openLoading: false,    //是否开启用户注册的loading状态
+        usernameErrorMsg: '',  //当用户名出现错误的时候
+        passwordErrorMsg: '',  //当密码出现错误的时候
       }
     },
     methods: {
       goBack() {
         this.$router.go(-1)
       },
+
+      registerAction() {
+        this.checkForm() && this.axiosRegisterUser();
+      },
+
       axiosRegisterUser() {
+        this.openLoading = true;
         axios({
           url: url.registerUser,
           method: 'post',
@@ -59,15 +71,38 @@
         .then(response => {
           console.log(response)
           if(response.data.code == 200) {
-            Toast.success(response.data.message)
+            Toast.success(response.data.message);
+            this.$router.push('/');
           } else {
-            console.log(response.data.message)
-            Toast.fail('注册失败')
+            console.log(response.data.message);
+            Toast.fail('注册失败');
+            this.openLoading = false;
           }
         })
         .catch(error => {
-          console.log(error)
+          Toast.fail('注册失败');
+          this.openLoading = false;
         })
+      },
+
+      //表单验证
+      checkForm() {
+        let isOk = true;
+        if(this.username.length < 5) {
+          this.usernameErrorMsg = '用户名不能小于5位';
+          isOk = false;
+        } else {
+          this.usernameErrorMsg = '';
+        }
+
+        if(this.password.length < 6) {
+          this.passwordErrorMsg = '密码不能小于6位';
+          isOk = false;
+        } else {
+          this.passwordErrorMsg = '';
+        }
+
+        return isOk;
       }
     }
   }
