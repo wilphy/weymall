@@ -12,12 +12,12 @@ app.use(cors())
 
 
 let user = require('./Controller/user.js')
-let home = require('./Controller/home.js')
+let goods = require('./Controller/goods.js')
 
 //装载所有子路由
 let router = new Router();
 router.use('/user', user.routes())
-router.use('/home', home.routes())
+router.use('/goods',goods.routes())
 
 //加载路由中间件
 app.use(router.routes())
