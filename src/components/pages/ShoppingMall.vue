@@ -81,7 +81,7 @@
   import 'swiper/dist/css/swiper.css'
   import {toMoney} from '@/filter/moneyFilter'
   import Floor from '@/components/common/Floor.vue'
-  import GoodsInfo from '@/components/GoodsInfo.vue'
+  import GoodsInfo from '@/components/common/GoodsInfo.vue'
 
   export default {
     data() {
