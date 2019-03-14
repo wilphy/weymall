@@ -90,7 +90,7 @@
         swiperOption: {
           slidesPerView:3
         },
-        locationIcon: require('../../assets/imgages/location.png'),
+        locationIcon: require('../../assets/images/location.png'),
         swipeImgArray: [],   //轮播图
         category: [],        //类别
         adBanner: '',        //广告栏
@@ -168,15 +168,15 @@
   .type-bar {
     background-color: #fff;
     border-radius: .3rem;
-    padding: .3rem;
     font-size: 14px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
   }
   .type-bar div {
-    width: 20%;
+    flex: 1;
     text-align: center;
+    padding: .3rem;
   }
   .recommand-area {
     background-color: #fff;
