@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="goods-info" @click="goGoodsPage()">
     <div class="goods-image">
       <img :src="goodsImage" width="90%" />
     </div>
@@ -11,10 +11,15 @@
 <script>
 import {toMoney} from '@/filter/moneyFilter'
   export default {
-    props: ['goodsImage','goodsName','goodsPrice'],
+    props: ['goodsImage','goodsName','goodsPrice', 'goodsId'],
     filters: {
       moneyFilter(money){
         return toMoney(money)
+      }
+    },
+    methods: {
+      goGoodsPage() {
+        this.$router.push({name:'Goods', query:{goodsId:this.goodsId}})
       }
     }
   }
