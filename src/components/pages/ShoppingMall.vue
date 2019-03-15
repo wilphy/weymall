@@ -72,6 +72,21 @@
       </div>
     </div>
 
+    <van-tabbar>
+        <van-tabbar-item icon="shop">
+          <router-link to="">首页</router-link>
+        </van-tabbar-item>
+        <van-tabbar-item icon="records">
+          <router-link to="categoryList">列表页</router-link>
+        </van-tabbar-item>
+        <van-tabbar-item icon="cart" info="20">
+          <router-link to="cart">购物车页</router-link>
+        </van-tabbar-item>
+        <van-tabbar-item icon="contact">
+          <router-link to="register">会员中心</router-link>
+        </van-tabbar-item>
+    </van-tabbar>
+
   </div>
 </template>
 
