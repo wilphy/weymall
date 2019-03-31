@@ -22,7 +22,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 ## 效果图
-``` bash
 #主页
 ![Image text](https://github.com/wilphy/weymall/blob/master/images/home.png)
 
